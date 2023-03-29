@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./generateMarkdown.js');
-// TODO: Create an array of questions for user input
+// array of questions for inquierer
 const questions = [
     {
         type: "input",
@@ -33,7 +33,28 @@ const questions = [
         type: "input",
         name: "contributionGuidelines",
         message: "Please enter contribution guidelines for your project.",
-    }
+    },
+    {
+        type: "input",
+        name: "testing",
+        message: "Please enter test instructions for your project.",
+    },
+    {
+        type: "list",
+        name: "license",
+        message: "Please select a license for your project.",
+        choices: ["MIT", "ISC", "Apache", "GPL", "BSD", "None"],
+    },
+    {
+        type: "input",
+        name: "username",
+        message: "Please enter your GitHub username",
+    },
+    {
+        type: "input",
+        name: "emailAddress",
+        message: "Please enter your email address",
+    },
 ];
 
 // TODO: Create a function to write README file
