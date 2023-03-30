@@ -1,79 +1,89 @@
-// node modules
-const inquirer = require('inquirer');
-const fs = require('fs');
-const generateMarkdown = require('./generateMarkdown.js');
-// array of questions for inquierer
+// packages required for application
+const inquirer = require("inquirer");
+const fs = require("fs");
+const path = require("path");
+const generateMarkdown = require("./assets/utils/generateMarkdown");
+
+//  array of questions for user input
 const questions = [
+
     {
         type: "input",
-        name: "authorName",
-        message: "Please enter your first and last name.",
+        name: "github",
+        message: "What's you GitHub username?"
     },
+
+    {
+        type: "input",
+        name: "email",
+        message: "What's your email?"
+    },
+
     {
         type: "input",
         name: "title",
-        message: "Please enter the title of your project.",
+        message: "What's the name of your project?"
     },
+
     {
         type: "input",
         name: "description",
-        message: "Please enter a description of your project.",
+        message: "Provide a brief description of your project:"
     },
+
     {
         type: "input",
-        name: "installation",
-        message: "Please enter installation instructions for your project.",
+        name: "github",
+        message: "What's you GitHub username?"
     },
-    {
-        type: "input",
-        name: "usage",
-        message: "Please enter usage information for your project",
-    },
-    {
-        type: "input",
-        name: "contributionGuidelines",
-        message: "Please enter contribution guidelines for your project.",
-    },
-    {
-        type: "input",
-        name: "testing",
-        message: "Please enter test instructions for your project.",
-    },
+
     {
         type: "list",
         name: "license",
-        message: "Please select a license for your project.",
-        choices: ["MIT", "ISC", "Apache", "GPL", "BSD", "None"],
+        message: "What license does our project have?",
+        choices: ["MIT", "APACHE2.0", "Boost1.0", "GLP3.0", "BSD2", "BSD3", "None"]
     },
+
     {
         type: "input",
-        name: "username",
-        message: "Please enter your GitHub username",
+        name: "dependencies",
+        message: "Any dependencies to install?",
+        default: "npm i"
     },
+
     {
         type: "input",
-        name: "emailAddress",
-        message: "Please enter your email address",
+        name: "test",
+        message: "What command should be run to run tests?",
+        default: "npm test"
     },
+
+    {
+        type: "input",
+        name: "usage",
+        message: "What is the proper usage of this repo?"
+    },
+
+    {
+        type: "input",
+        name: "contributors",
+        message: "Who are the contributors of this repo?"
+    }
 ];
 
-// function to write README file
+// function to write read me file
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, generateMarkdown(data), function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("Success!");
-    });
+    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
 }
 
 // function to initialize app
 function init() {
-    inquierer.prompt(questions).then(function (response) {
-        console.log(response);
-        writeToFile(`${response.title}.md`, response);
+    inquirer.prompt(questions)
+    .then((inquirerAnswers) => {
+        console.log("Generating.... Please wait....");
+        writeToFile("./assets/utils/sampleREADME.md", generateMarkdown({ ...inquirerAnswers }));
     })
 }
 
-// Function call to initialize app
+// function call to initialize app
 init();
