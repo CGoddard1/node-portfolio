@@ -10,6 +10,8 @@ All GitHub projects should include a professional README to showcase what the pr
 
 ## Full Walkthrough Video
 
+<link href="https://drive.google.com/file/d/1mBlI8kSWilL0B2Qn-qAf3VdGX-pyjcc2/view">
+
 ## Installation
 1. Fork and Clone repository to local machine.
 2. Run npm i to install dependencies in local project directory.
